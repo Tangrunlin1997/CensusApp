@@ -3,18 +3,18 @@ library(maps)
 library(mapproj)
 
 
-
 counties <- readRDS("data/counties.rds")
 source("helpers.R")
 
 
 ui <- fluidPage(
-  titlePanel("censusVis"),
+  titlePanel("CensusApp"),
   
   sidebarLayout(
     sidebarPanel(
       helpText("Create demographic maps with 
-               information from the 2010 US Census."),
+               information from the 2010 US Census.
+               Show ethnic distribution in different regions"),
       
       selectInput("var", 
                   label = "Choose a variable to display",
@@ -48,12 +48,13 @@ server <- function(input, output) {
                     "Percent Asian" = "darkviolet")
     
     legend <- switch(input$var, 
-                     "Percent White" = "% White",
-                     "Percent Black" = "% Black",
-                     "Percent Hispanic" = "% Hispanic",
-                     "Percent Asian" = "% Asian")
+                     "Percent White" = "Percentage of White",
+                     "Percent Black" = "Percentage of Black",
+                     "Percent Hispanic" = "Percentage of Hispanic",
+                     "Percent Asian" = "Percentage of Asian")
     
     percent_map(data, color, legend, input$range[1], input$range[2])
+    
   })
 }
 
